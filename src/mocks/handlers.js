@@ -1,9 +1,9 @@
 import { rest } from 'msw';
 
-const BASE_URL = 'http://localhost:3000';
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export const handlers = [
-  rest.get(`${BASE_URL}/scoop`, (req, res, ctx) => {
+  rest.get(`${BASE_URL}/scoops`, (req, res, ctx) => {
     return res(
       ctx.json([
         { name: 'Chocolate', imagePath: '/images/chocolate.png' },
