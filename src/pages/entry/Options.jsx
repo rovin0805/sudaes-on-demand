@@ -16,12 +16,20 @@ export default function Options({ optionType }) {
   const { totals } = useOrderDetails();
 
   useEffect(() => {
+    // create an abortController to attach to network request
+    const controller = new AbortController();
+
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/${optionType}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/${optionType}`, {
+        signal: controller.signal,
+      })
       .then((res) => {
         setItems(res.data);
       })
       .catch((err) => setError(true));
+
+    // abort axios call on component unmount
+    return () => controller.abort();
   }, [optionType]);
 
   if (error) {
