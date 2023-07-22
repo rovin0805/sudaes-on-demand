@@ -21,4 +21,12 @@ const toppingsRest = rest.get(`${BASE_URL}/toppings`, (req, res, ctx) => {
   );
 });
 
-export const handlers = [scoopsRest, toppingsRest];
+const postOrderRest = rest.post(`${BASE_URL}/order`, async (req, res, ctx) => {
+  function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+  await sleep(100);
+  return res(ctx.json({ orderNumber: 123455676 }));
+});
+
+export const handlers = [scoopsRest, toppingsRest, postOrderRest];
